@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.info.md5hash.databinding.ActivityMainBinding;
 
@@ -13,21 +14,35 @@ import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-
+    private final String hashData = "9e69e5df21d99aea0e757ad6ff634583";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+       // String s1 = "125125124";
         binding.buttonMd5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String s1 = binding.editTextMd5.getText().toString();
-                System.out.println(s1 + ": " + getMd5(s1));
-                binding.textMd5.setText(getMd5(s1));
+                if(hashData.equals(getMd5(s1))) {
+                    Toast.makeText(getApplicationContext(), "Giriş Başarılı", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Şifre Yanlış !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+
+//        binding.buttonMd5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String s1 = binding.editTextMd5.getText().toString();
+//                System.out.println(s1 + ": " + getMd5(s1));
+//                binding.textMd5.setText(getMd5(s1));
+//            }
+//        });
     }
 
     public static String getMd5(String input) {
